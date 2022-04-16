@@ -26,7 +26,8 @@ func main() {
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stdout, "Error\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-	dsn := "host=localhost port=5433 user=postgres password=password dbname=vueapi sslmode=disable timezone=UTC connect_timeout=5"
+	// dsn := "host=localhost port=5433 user=postgres password=password dbname=vueapi sslmode=disable timezone=UTC connect_timeout=5"
+	dsb := os.Getenv("DSN")
 	db, err := driver.ConnectPostgres(dsn)
 	if err != nil {
 		log.Fatal("Cannot connect to database")
