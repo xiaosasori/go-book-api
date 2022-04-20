@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"go-book-api/internal/data"
 	"go-book-api/internal/driver"
 	"log"
 	"net/http"
@@ -16,7 +17,7 @@ type application struct {
 	config   config
 	infoLog  *log.Logger
 	errorLog *log.Logger
-	db       *driver.DB
+	models   data.Models
 }
 
 func main() {
@@ -27,7 +28,7 @@ func main() {
 	errorLog := log.New(os.Stdout, "Error\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	// dsn := "host=localhost port=5433 user=postgres password=password dbname=vueapi sslmode=disable timezone=UTC connect_timeout=5"
-	dsb := os.Getenv("DSN")
+	dsn := os.Getenv("DSN")
 	db, err := driver.ConnectPostgres(dsn)
 	if err != nil {
 		log.Fatal("Cannot connect to database")
@@ -38,7 +39,7 @@ func main() {
 		config:   cfg,
 		infoLog:  infoLog,
 		errorLog: errorLog,
-		db:       db,
+		models:   data.New(db.SQL),
 	}
 
 	err = app.serve()
