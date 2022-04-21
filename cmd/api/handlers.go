@@ -379,21 +379,21 @@ func (app *application) EditBook(w http.ResponseWriter, r *http.Request) {
 			app.errorJSON(w, err)
 			return
 		}
+	}
 
-		if book.ID == 0 {
-			// adding a book
-			_, err := app.models.Book.Insert(book)
-			if err != nil {
-				app.errorJSON(w, err)
-				return
-			}
-		} else {
-			// updating a boko
-			err := book.Update()
-			if err != nil {
-				app.errorJSON(w, err)
-				return
-			}
+	if book.ID == 0 {
+		// adding a book
+		_, err := app.models.Book.Insert(book)
+		if err != nil {
+			app.errorJSON(w, err)
+			return
+		}
+	} else {
+		// updating a boko
+		err := book.Update()
+		if err != nil {
+			app.errorJSON(w, err)
+			return
 		}
 	}
 
