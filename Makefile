@@ -1,24 +1,27 @@
-DSN="host=localhost port=5432 user=postgres password=password dbname=vueapi sslmode=disable timezone=UTC connect_timeout=5"
+DSN=host=localhost port=5432 user=postgres password=password dbname=vueapi sslmode=disable timezone=UTC connect_timeout=5
 BINARY_NAME=vueapi.exe
+ENV=development
 
 ## build: builds all binaries
 build:
-    @go build -o ${BINARY_NAME} ./cmd/api
-    @echo back end built!
+	@go build -o ${BINARY_NAME} ./cmd/api
+	@echo back end built!
 
-run:
-    @echo Starting back end...
-    @start /min cmd /c ${BINARY_NAME} &
-    @echo back end started!
+run: build
+	@echo Starting back end...
+	set "DSN=${DSN}"
+	set "ENV=${ENV}"
+	start /min cmd /c ${BINARY_NAME} &
+	@echo back end started!
 
 clean:
-  @echo Cleaning...
+	@echo Cleaning...
 	@DEL ${BINARY_NAME}
 	@go clean
 	@echo Cleaned!
 
 start: run
-	
+
 stop:
 	@echo "Stopping the back end..."
 	@taskkill /IM ${BINARY_NAME} /F
