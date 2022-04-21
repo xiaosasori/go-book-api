@@ -8,3 +8,4 @@
 - Run DB: `docker-compose up`
 - Run app: `make start`
 - Stop app: `make stop`
+- Test: `go test -v ./cmd/api.`
