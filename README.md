@@ -9,3 +9,4 @@
 - Run app: `make start`
 - Stop app: `make stop`
 - Test: `go test -v ./cmd/api.`
+- Coverage: `#cd cmd/api go test -coverprofile=coverage.out && go tool cover -html=coverage.out`
